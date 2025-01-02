@@ -23,4 +23,4 @@ dev-db-reset: dev-db-start
 
 run-service:
 	@echo "Starting the user service..."
-	DATABASE_URL=postgresql://$(DB_USER):$(DB_PASSWORD)@localhost:$(DB_PORT)/$(DB_NAME) uvicorn src.main:app --reload
+	ENV=dev uvicorn src.main:app --reload

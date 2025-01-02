@@ -2,8 +2,7 @@ from fastapi import Depends
 from sqlmodel import Session, SQLModel, create_engine
 from typing import Annotated
 
-from src.env import DATABASE_URL 
-
+from src.env import DATABASE_URL
 
 connect_args = {}
 engine = create_engine(DATABASE_URL, connect_args=connect_args)
