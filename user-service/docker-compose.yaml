@@ -4,16 +4,14 @@ services:
       context: .
     ports:
       - "8000:8000"
-    environment:
-      DATABASE_URL: postgresql://api_user:secure_password@user-db:5432/user_service_db
+    env_file:
+      - .env.production
     depends_on:
       - user-db
 
   user-db:
     image: postgres:latest
-    environment:
-      POSTGRES_USER: api_user
-      POSTGRES_PASSWORD: secure_password
-      POSTGRES_DB: user_service_db
+    env_file:
+      - .env.production
     ports:
       - "5432:5432"
