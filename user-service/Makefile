@@ -1,9 +1,7 @@
-.PHONY: dev-db-start dev-db-stop dev-db-reset run-service
+include .env.local
+export
 
-DB_USER=api_user
-DB_PASSWORD=overload_dev
-DB_NAME=user_service_db
-DB_PORT=5432
+.PHONY: dev-db-start dev-db-stop dev-db-reset run-service
 
 dev-db-start:
 	@echo "Starting the development database..."
@@ -16,11 +14,6 @@ dev-db-start:
 		psql -U postgres -c "CREATE DATABASE $(DB_NAME) OWNER $(DB_USER);"; \
 	fi
 	@echo "Database '$(DB_NAME)' is ready on port $(DB_PORT)."
-
-dev-db-stop:
-	@echo "Stopping the development database..."
-	@sudo systemctl stop postgresql
-	@echo "PostgreSQL service stopped."
 
 dev-db-reset: dev-db-start
 	@echo "Resetting the development database..."
