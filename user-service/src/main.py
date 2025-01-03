@@ -1,7 +1,8 @@
 from contextlib import asynccontextmanager
 from fastapi import Depends, FastAPI, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr, StringConstraints
 from sqlmodel import select
+from typing_extensions import Annotated
 
 from src.models import User 
 from src.utils import create_access_token, create_refresh_token, hash_pass, verify_pass
@@ -22,8 +23,8 @@ async def root():
 
 class Register(BaseModel):
     username: str
-    password: str
-    email: str
+    password: Annotated[str, StringConstraints(min_length=8,max_length=20)]
+    email: EmailStr
 
 @app.post("/register/")
 async def register(user: Register, session: SessionDep):
